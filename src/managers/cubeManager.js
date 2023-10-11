@@ -1,7 +1,8 @@
 const cubes = []
+const Cube = require('../models/Cube')
 
-exports.getAll = (search, from, to) => {
-  let result = cubes.slice()
+exports.getAll = async (search, from, to) => {
+  let result = await Cube.find().lean()
 
   if(search) {
 result = result.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()))
@@ -18,14 +19,11 @@ result = result.filter(cube => cube.name.toLowerCase().includes(search.toLowerCa
   return result
 }
 
-exports.getOne = (cubeId) => cubes.find(x => x.id == cubeId)
+exports.getOne = (cubeId) => Cube.findById(cubeId)
 
-exports.create = (cubeData) => {
-  const newCube = {
-    id: cubes.length + 1,
-    ...cubeData,
-  }
+exports.create = async (cubeData) => {
+ const cube = new Cube(cubeData)
+ await cube.save()
 
-  cubes.push(newCube)
-  return newCube
+  return cube
 }
