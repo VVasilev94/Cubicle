@@ -1,11 +1,8 @@
-const mongoose = require('mongoose')
-
-const uri = 'mongodb://127.0.0.1:27017/cubicle-may-2023'
+const mongoose = require("mongoose");
+const { URL } = require("./../constants");
 
 async function dbConnect() {
-    await mongoose.connect(uri)
+  await mongoose.connect(URL);
 }
 
-dbConnect
-
-module.exports = dbConnect
+module.exports = dbConnect;
