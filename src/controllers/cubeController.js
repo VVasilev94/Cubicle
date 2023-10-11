@@ -23,4 +23,8 @@ await cubeManager.create({ name, description, imageUrl, difficultyLevel: Number(
   res.redirect("/");
 });
 
+router.get('/:cubeId/attach-accessory', (req, res) => {
+  res.render('accessory/attach')
+})
+
 module.exports = router;
