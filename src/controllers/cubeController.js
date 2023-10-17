@@ -66,6 +66,11 @@ router.get('/:cubeId/edit', async (req, res) => {
 
 const { cubeId } = req.params
 const cube = await cubeService.getSingleCube(cubeId).lean()
+
+if(cube.owner?.toString() !== req.user._id) {
+  return res.redirect('/404')
+}
+
 const options = difficultyLevelOptionsViewData(cube.difficultyLevel)
 
   res.render('cube/edit', { cube, options })
