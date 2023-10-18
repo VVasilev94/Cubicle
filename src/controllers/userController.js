@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const userService = require("../services/userService");
+const { exactErrorMsg } = require('../utils/errorHandle')
 
 router.get("/register", (req, res) => {
   res.render("user/register");
@@ -12,7 +13,8 @@ try {
   res.redirect("/users/login");
   
 } catch (err) {
-  res.status(404).render('user/register')
+  const errorMessages = exactErrorMsg(err)
+  res.status(404).render('user/register', { errorMessages })
 }
 
 });
